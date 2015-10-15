@@ -132,13 +132,6 @@ public class CrimeListFragment extends Fragment {
                 if(crimes.get(i).getId() == true_id )
                     index = i;
             }
-            mAdapter.notifyDataSetChanged();
-        }
-
-        if(mAdapter == null) {
-            mAdapter = new CrimeAdapter(crimes);
-            mCrimeRecyclerView.setAdapter(mAdapter);
-        } else {
             mAdapter.notifyItemChanged(index);
         }
 
