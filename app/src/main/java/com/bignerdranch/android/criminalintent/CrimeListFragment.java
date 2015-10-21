@@ -47,8 +47,10 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View v){
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
-            startActivityForResult(intent, REQUEST_CRIME);
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
+            true_id = mCrime.getId();
+            startActivity(intent);
+
         }
 
 
@@ -108,7 +110,7 @@ public class CrimeListFragment extends Fragment {
         updateUI();
     }
 
-    @Override
+   /* @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         UUID yes = null;
         if (requestCode == 1) {
@@ -118,7 +120,7 @@ public class CrimeListFragment extends Fragment {
             }
         }
 
-    }
+    }*/
 
     private void updateUI(){
         CrimeLab crimeLab = CrimeLab.get(getActivity());
@@ -132,15 +134,9 @@ public class CrimeListFragment extends Fragment {
                 if(crimes.get(i).getId() == true_id )
                     index = i;
             }
-            mAdapter.notifyDataSetChanged();
-        }
-
-        if(mAdapter == null) {
-            mAdapter = new CrimeAdapter(crimes);
-            mCrimeRecyclerView.setAdapter(mAdapter);
-        } else {
             mAdapter.notifyItemChanged(index);
         }
+
 
     }
 
