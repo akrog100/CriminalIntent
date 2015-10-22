@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class CrimeListFragment extends Fragment {
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
         private TextView mDateTextView;
+        private TextView mTimeTextView;
         private CheckBox mSolvedCheckBox;
         private Crime mCrime;
         private static final int REQUEST_CRIME = 1;
@@ -42,6 +44,7 @@ public class CrimeListFragment extends Fragment {
 
             mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_crime_title_text_view);
             mDateTextView = (TextView) itemView.findViewById(R.id.list_item_crime_date_text_view);
+            mTimeTextView = (TextView) itemView.findViewById(R.id.list_item_crime_time_text_view);
             mSolvedCheckBox = (CheckBox) itemView.findViewById(R.id.list_item_crime_solved_check_box);
         }
 
@@ -57,7 +60,8 @@ public class CrimeListFragment extends Fragment {
         public void bindCrime(Crime crime){
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
+            mDateTextView.setText("DATE:" + DateFormat.format("MM/dd/yyyy", mCrime.getDate()));
+            mTimeTextView.setText("TIME:" + DateFormat.format("hh:mm", mCrime.getTime()));
             mSolvedCheckBox.setChecked(mCrime.isSolved());
         }
 
@@ -110,17 +114,6 @@ public class CrimeListFragment extends Fragment {
         updateUI();
     }
 
-   /* @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        UUID yes = null;
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-               yes = (UUID) data.getSerializableExtra("serializable");
-                true_id = yes;
-            }
-        }
-
-    }*/
 
     private void updateUI(){
         CrimeLab crimeLab = CrimeLab.get(getActivity());
@@ -137,8 +130,6 @@ public class CrimeListFragment extends Fragment {
             mAdapter.notifyItemChanged(index);
         }
 
-
     }
-
-
+    
 }
