@@ -34,6 +34,7 @@ public class CrimeFragment extends Fragment {
     private EditText mTitleField;
     private Button mDateButton;
     private Button mTimeButton;
+    private Button mDeleteButton;
     private CheckBox mSolvedCheckBox;
 
 
@@ -44,14 +45,6 @@ public class CrimeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-    /*
-    public void returnResult(){
-        Intent data = new Intent();
-        data.putExtra("serializable", mCrime.getId());
-        getActivity().setResult(Activity.RESULT_OK, data);
-
-    }*/
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState ){
@@ -104,9 +97,9 @@ public class CrimeFragment extends Fragment {
 
         mTimeButton = (Button)v.findViewById(R.id.crime_time);
         updateTime();
-        mTimeButton.setOnClickListener(new View.OnClickListener(){
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-        public void onClick(View v){
+            public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
                 TimePickerFragment dialog = TimePickerFragment.newInstance(mCrime.getTime());
                 dialog.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
@@ -124,11 +117,23 @@ public class CrimeFragment extends Fragment {
                 mCrime.setSolved(isChecked);
             }
         });
+
+        mDeleteButton = (Button)v.findViewById(R.id.delete_crime);
+        mDeleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                CrimeLab.get(getActivity()).removeCrime(mCrime);
+                getActivity().finish();
+            }
+
+        });
+
         return v;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
+
         if(resultCode != Activity.RESULT_OK){
             return;
         }
