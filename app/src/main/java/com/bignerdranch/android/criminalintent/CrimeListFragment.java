@@ -158,7 +158,15 @@ public class CrimeListFragment extends Fragment {
             mAdapter.notifyItemChanged(index);
 
         }
+        /*tried to make sure the view got updated if a crime was deleted
+        the crime is deleted by the application, however i couldn't quite figure out how to refresh
+        the main activity after calling getActivity.finish() in the fragment
+        you can see that the crimes are actually deleted by giving each a specific name and
+        then creating a new crime after deleting one, after which you will see that the crime has
+        actually been deleted from the array list of crimes
+        */
 
+        
         if(delChange == null)
             mAdapter.notifyDataSetChanged();
 
