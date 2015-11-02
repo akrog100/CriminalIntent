@@ -101,7 +101,12 @@ public class CrimeListFragment extends Fragment {
             return mCrimes.size();
         }
 
+        public void setCrimes(List<Crime> crimes){
+            mCrimes = crimes;
+        }
+
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -155,6 +160,7 @@ public class CrimeListFragment extends Fragment {
                     delChange = false;
                 }
             }
+            mAdapter.setCrimes(crimes);
             mAdapter.notifyItemChanged(index);
 
         }
@@ -166,7 +172,7 @@ public class CrimeListFragment extends Fragment {
         actually been deleted from the array list of crimes
         */
 
-        
+
         if(delChange == null)
             mAdapter.notifyDataSetChanged();
 
