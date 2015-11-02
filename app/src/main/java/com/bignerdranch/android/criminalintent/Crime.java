@@ -63,6 +63,10 @@ public class Crime {
         mSuspect = suspect;
     }
 
+    public String getPhotoFilename(){
+        return "IMG_" + getId().toString() + ".jpg";
+    }
+
     public Date getTime() { return mTime;}
 
     public void setTime(Date time) {mTime = time;}
